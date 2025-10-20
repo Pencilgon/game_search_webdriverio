@@ -4,6 +4,12 @@ import allure from '@wdio/allure-reporter';
 import gamePage from '../pageobjects/GamePage.js';
 import priceUtils from '../utils/PriceUtils.js';
 
+Then(/^The game page is displayed$/, async function () {
+  await allure.startStep('Verify Game Page is displayed');
+  assert.isTrue(gamePage.isPageOpened(), "Game Page is not opened");
+  await allure.endStep();
+});
+
 When(/^I expand the More information section in the game page$/, async () => {
   await allure.startStep('Expand More information section');
   await gamePage.clickMoreInformationButton();
@@ -14,7 +20,7 @@ Then(/^The "([^"]+)" matches with those from the search results$/, async functio
   await allure.startStep(`Verify ${field} matches search results`);
   const actualValue = await gamePage.getGameInfo(field);
   const expectedValue = this.context[`game${field}`];
-  assert.equal(actualValue, expectedValue, `${field} does not match search result`);
+  assert.strictEqual(actualValue, expectedValue, `${field} does not match search result`);
   await allure.endStep();
 });
 
@@ -30,7 +36,7 @@ Then(/^The game price matches with the price shown on the search results page$/,
   const searchPagePriceText = this.context.gamePrice;
   const gamePagePrice = priceUtils.normalizePrice(gamePagePriceText);
   const searchPagePrice = priceUtils.normalizePrice(searchPagePriceText);
-  assert.equal(
+  assert.strictEqual(
     gamePagePrice,
     searchPagePrice,
     `Expected game page price "${gamePagePrice}" to equal search page price "${searchPagePrice}"`,

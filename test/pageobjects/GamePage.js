@@ -5,7 +5,7 @@ import BasePage from '../../framework/page/BasePage.js';
 class GamePage extends BasePage {
   moreInformationButton = new Button("//a[@class='toggle_info_btn']", 'More Information Button');
 
-  infoPanel = new Label("//div[@class='info_panel_wrapper' and @style='display: block;']", 'Information panel');
+  infoPanel = new Label("//div[@class='info_panel_wrapper']", 'Information panel');
 
   gameInfo = (text) => new Button(`//td[text()='${text}']/following-sibling::td/a`, `Information about Game ${text}`);
 
@@ -14,7 +14,7 @@ class GamePage extends BasePage {
   gamePrice = new Label("//span[@itemprop='price']", 'Game Price');
 
   constructor() {
-    super(new Label("//div[@id='inner_column']", 'Game Info Wrapper'), 'Game Page');
+    super(new Label("//div[contains(@Class, 'formatted_description')]", 'Game Info Wrapper'), 'Game Page');
   }
 
   async clickMoreInformationButton() {

@@ -4,7 +4,7 @@ import { Input } from '../../framework/elements/Input.js';
 import { Button } from '../../framework/elements/Button.js';
 
 class MainPage extends BasePage {
-  searchField = new Input("//input[contains(@placeholder,'Search for games')]", 'Search Field');
+  searchField = new Input("//input[contains(@class,'search_input')]", 'Search Field');
 
   searchButton = new Button("//button[contains(@class,'submit_btn')]", 'Search Button');
 

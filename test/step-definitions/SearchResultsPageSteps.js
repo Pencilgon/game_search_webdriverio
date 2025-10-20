@@ -3,6 +3,12 @@ import { assert } from 'chai';
 import allure from '@wdio/allure-reporter';
 import searchResultsPage from '../pageobjects/SearchResultsPage.js';
 
+Then(/^The search results page is displayed$/, async function () {
+  await allure.startStep('Verify Search Results Page is displayed');
+  assert.isTrue(searchResultsPage.isPageOpened(), "Search Results Page is not opened");
+  await allure.endStep();
+});
+
 Then(/^The header contains the search query$/, async function () {
   await allure.startStep('Verify header contains the search query');
   assert.include(await searchResultsPage.getPageHeader(), this.context.searchQuery, '');
@@ -11,7 +17,7 @@ Then(/^The header contains the search query$/, async function () {
 
 Then(/^The (\d+) game name matches with search query$/, async function (gameIndex) {
   await allure.startStep(`Verify game ${gameIndex} name matches search query`);
-  assert.equal(await searchResultsPage.getGameName(gameIndex), this.context.searchQuery, '');
+  assert.strictEqual(await searchResultsPage.getGameName(gameIndex), this.context.searchQuery, '');
   this.context.gamePrice = await searchResultsPage.getGamePrice(gameIndex);
   await allure.endStep();
 });
@@ -33,7 +39,7 @@ Then(/^The (\d+) game (Author|Genre) is "([^"]+)"$/, async function (gameIndex, 
       throw new Error(`Unsupported field: ${field}`);
   }
 
-  assert.equal(actualValue, expectedValue, `Expected game ${field} to be "${expectedValue}", but got "${actualValue}"`);
+  assert.strictEqual(actualValue, expectedValue, `Expected game ${field} to be "${expectedValue}", but got "${actualValue}"`);
   await allure.endStep();
 });
 
@@ -45,8 +51,8 @@ When(/^I open the (\d+) game from the search results$/, async (gameIndex) => {
 
 Then(/^The (\d+) game should match the initial search result$/, async function (gameIndex) {
   await allure.startStep(`Verify game ${gameIndex} matches the initial search result`);
-  assert.equal(await searchResultsPage.getGameName(gameIndex), this.context.searchQuery, '');
-  assert.equal(await searchResultsPage.getGameAuthor(gameIndex), this.context.gameAuthor, '');
-  assert.equal(await searchResultsPage.getGameGenre(gameIndex), this.context.gameGenre, '');
+  assert.strictEqual(await searchResultsPage.getGameName(gameIndex), this.context.searchQuery, '');
+  assert.strictEqual(await searchResultsPage.getGameAuthor(gameIndex), this.context.gameAuthor, '');
+  assert.strictEqual(await searchResultsPage.getGameGenre(gameIndex), this.context.gameGenre, '');
   await allure.endStep();
 });

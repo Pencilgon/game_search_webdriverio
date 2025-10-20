@@ -4,14 +4,16 @@ import { Button } from '../../framework/elements/Button.js';
 
 class SearchResultsPage extends BasePage {
   pageHeader = new Label("//div[contains(@class,'search_header')]/h2", 'Page Header');
+  
+  gameCardByIndex = (index) => `//div[contains(@class,'game_grid_widget')]/*[${index}]`;
 
-  gameName = (index) => new Button(`//div[contains(@class,'game_grid_widget')]/*[${index}]//div[@class='game_title']/a`, 'Game Name');
+  gameName = (index) => new Button(`${this.gameCardByIndex(index)}//div[@class='game_title']/a`, 'Game Name');
+  
+  gameAuthor = (index) => new Button(`${this.gameCardByIndex(index)}//div[@class='game_author']/a`, 'Game Author');
 
-  gameAuthor = (index) => new Button(`//div[contains(@class,'game_grid_widget')]/*[${index}]//div[@class='game_author']/a`, 'Game Author');
-
-  gameGenre = (index) => new Label(`//div[contains(@class,'game_grid_widget')]/*[${index}]//div[@class='game_genre']`, 'Game Genre');
-
-  gamePrice = (index) => new Label(`//div[contains(@class,'game_grid_widget')]/*[${index}]//div[@class='game_title']//div[@class='price_value']`, 'Game Price');
+  gameGenre = (index) => new Label(`${this.gameCardByIndex(index)}//div[@class='game_genre']`, 'Game Genre');
+  
+  gamePrice = (index) => new Label(`${this.gameCardByIndex(index)}//div[@class='game_title']//div[@class='price_value']`, 'Game Price');
 
   constructor() {
     super(new Label("//div[contains(@class,'search_header')]/h2[contains(text(),'Search results')]", 'Page Header'), 'Search Results Page');

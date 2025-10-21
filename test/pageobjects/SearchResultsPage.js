@@ -5,7 +5,7 @@ import { Button } from '../../framework/elements/Button.js';
 class SearchResultsPage extends BasePage {
   pageHeader = new Label("//div[contains(@class,'search_header')]/h2", 'Page Header');
   
-  gameCardByIndex = (index) => `//div[contains(@class,'game_grid_widget')]/*[${index}]`;
+  gameCardByIndex = (index) => `//div[contains(@class,'game_grid_widget')]/div[${index}]`;
 
   gameName = (index) => new Button(`${this.gameCardByIndex(index)}//div[@class='game_title']/a`, 'Game Name');
   
